@@ -1,0 +1,16 @@
+
+# Programa de prueba 
+int interno = 10;
+float pi = 3.14; // comentario de línea
+/* comentario
+   de bloque */
+if (contador >= 10 && pi != 0) {
+    print(contador);
+} else {
+    contador = contador + 1;
+    while (contador <= 20) {
+        print(contador);
+        contador = contador + 1;
+    }
+    return;
+}
