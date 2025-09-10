@@ -81,21 +81,28 @@ class Lexer:
 
         while pos < n:
             c = texto[pos]
+            matched = False 
 
+            # -----------------------------
             # Operadores de dos caracteres
+            # -----------------------------
             dos_char_ops = {"==": "OP_EQ", "!=": "OP_NEQ", "<=": "OP_LE", ">=": "OP_GE", "&&": "OP_AND", "||": "OP_OR"}
             if pos + 1 < n and texto[pos:pos+2] in dos_char_ops:
                 tokens.append((dos_char_ops[texto[pos:pos+2]], texto[pos:pos+2]))
                 pos += 2
+                matched = True
                 continue
 
+            # -----------------------------
             # Operadores de un carácter y delimitadores
+            # -----------------------------
             uno_char_ops = {"+": "OP_SUMA", "-": "OP_RESTA", "*": "OP_MUL", "/": "OP_DIV", "%": "OP_MOD",
                             "=": "ASIGNACION", "!": "OP_NOT", "<": "OP_LT", ">": "OP_GT",
                             "(": "LPAREN", ")": "RPAREN", "{": "LBRACE", "}": "RBRACE", ";": "PUNTOYCOMA", ",": "COMA"}
             if c in uno_char_ops:
                 tokens.append((uno_char_ops[c], c))
                 pos += 1
+                matched = True
                 continue
 
             # -----------------------------
@@ -124,10 +131,10 @@ class Lexer:
                 if palabra_reservada:
                     tokens.append((KEYWORDS[palabra_reservada], lex[:len(palabra_reservada)]))
                     if len(lex) > len(palabra_reservada):
-  
                         tokens.append(("ID", lex[len(palabra_reservada):]))
                 else:
                     tokens.append(("ID", lex))
+                matched = True
                 continue
 
             # -----------------------------
@@ -143,15 +150,19 @@ class Lexer:
                 pos += 1
             if self.afd_num.es_aceptacion(estado):
                 lex = texto[start:pos]
-
-                if pos < n and (texto[pos].isalpha() or texto[pos] == "_"):
-                    end = pos
-                    while end < n and (texto[end].isalnum() or texto[end] == "_"):
-                        end += 1
-                    raise LexerError(f"Lexema inválido: {texto[start:end]}")
-
+                # Validar que no haya letras pegadas después de un número
+                if pos < n and texto[pos].isalpha():
+                    raise LexerError(f"Lexema inválido '{texto[start:pos+1]}'")
                 tokens.append(("NUM", lex))
+                matched = True
                 continue
+
+            # -----------------------------
+            # Si no se reconoció ningún token
+            # -----------------------------
+            if not matched:
+                raise LexerError(f"Carácter inesperado: {texto[pos]}")
+                pos += 1  # Esto normalmente no se alcanza porque raise termina el programa
 
         return tokens
 
