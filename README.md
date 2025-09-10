@@ -47,6 +47,16 @@ El analizador léxico (`lexer.py`) sigue el siguiente enfoque:
 4. **Construcción de la lista de tokens** que será utilizada en fases posteriores del compilador/intérprete.  
 5. **Manejo de errores léxicos**: si se encuentra un carácter inválido, se lanza una excepción `LexerError`.
 
+## Casos de prueba
+
+- [sample2.src](sample2.src) – Caso de éxito.  
+
+- [sample3.src](sample3.src) – Caso de éxito.  
+
+- [sample4.src](sample4.src) – Caso de falla: Lexema inválido.  
+
+- [sample5.src](sample5.src) – Caso de falla: carácter inválido.  
+
 Ejemplo de ejecución:  
 
 ```bash
