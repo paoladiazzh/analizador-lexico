@@ -4,7 +4,7 @@ ListaDecl     -> Decl ListaDecl| ε
 Decl          -> DeclVar | DeclFunc
 DeclVar       -> Tipo ListaId PUNTOYCOMA
 ListaId       -> ID | ID COMA ListaId
-Tipo          -> INT | FLOAT
+Tipo          -> INT | FLOAT | VOID
 DeclFunc      -> Tipo ID LPAREN Parametros RPAREN Bloque | Tipo ID LPAREN RPAREN Bloque
 Parametros    -> ParamLista | ε
 ParamLista    -> Param | Param COMA ParamLista

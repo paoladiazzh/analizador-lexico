@@ -6,7 +6,7 @@ class LexerError(Exception):
 # -----------------------------
 # Palabras clave
 # -----------------------------
-KEYWORDS = {k.lower(): k for k in ["IF", "ELSE", "WHILE", "FOR", "INT", "FLOAT", "RETURN", "PRINT"]}
+KEYWORDS = {k.lower(): k for k in ["IF", "ELSE", "WHILE", "FOR", "INT", "FLOAT", "RETURN", "PRINT", "VOID"]}
 
 # -----------------------------
 # AFD básico

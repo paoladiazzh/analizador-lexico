@@ -40,6 +40,7 @@
 | RBRACE       | `\}`                             | `}` |
 | PUNTOYCOMA   | `;`                              | `;` |
 | COMA         | `,`                              | `,` |
+| VOID         | `void`                           | `void` |
 
 ## Observaciones formales
 - **Identificadores (ID)**: AFD con estado inicial `S`, transición por `[A-Za-z_]` a `A` (aceptación), y bucle en `A` por `[A-Za-z0-9_]`.

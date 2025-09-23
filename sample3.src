@@ -1,6 +1,7 @@
 // caso de exito
+void main() {
 if (x >= 5) {
     print(x);
     x = x + 1;
 }
-
+}

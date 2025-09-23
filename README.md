@@ -6,7 +6,7 @@ Este proyecto consiste en la implementación de un **analizador léxico** en Pyt
 
 ## Propuesta de palabras clave
 
-El lenguaje definido incluye palabras reservadas como `if`, `else`, `while`, `for`, `int`, `float`, `return`, `print`, entre otras.  
+El lenguaje definido incluye palabras reservadas como `if`, `else`, `while`, `for`, `int`, `float`, `return`, `print`, `void`, entre otras.  
 Además, reconoce identificadores, números, operadores aritméticos, relacionales, lógicos, y delimitadores.  
 
 ---
