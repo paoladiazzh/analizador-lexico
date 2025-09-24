@@ -34,7 +34,9 @@
 &emsp;| **SentenciaPrint**  
 &emsp;| **Bloque**
 
-**SentenciaExpr** → **Expr** `PUNTOYCOMA` | `PUNTOYCOMA`
+**SentenciaExpr** → **Asignacion** `PUNTOYCOMA` | `PUNTOYCOMA`
+
+**Asignacion** → `ID` `ASIGNACION` **Expr** | **Expr**
 
 **SentenciaSel** → `IF` `LPAREN` **Expr** `RPAREN` **Sentencia**  
 &emsp;| `IF` `LPAREN` **Expr** `RPAREN` **Sentencia** `ELSE` **Sentencia**
