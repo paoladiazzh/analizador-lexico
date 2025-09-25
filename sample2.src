@@ -1,3 +1,5 @@
 #caso de exito
+void main(){
 int contador = 42;
 float promedio = 3.14;
+}
