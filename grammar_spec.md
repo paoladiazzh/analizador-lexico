@@ -1,70 +1,68 @@
-# Reglas de Producción
+**S** → `bof` **PROGRAMA** `eof`
 
-**S** → `BOF` **Programa** `EOF`
+**PROGRAMA** → **LISTADECL**
 
-**Programa** → **ListaDecl**
+**LISTADECL** → **DECL** **LISTADECL** | ε
 
-**ListaDecl** → **Decl** **ListaDecl** | ε
+**DECL** → **DECLVAR** | **DECLFUNC**
 
-**Decl** → **DeclVar** | **DeclFunc**
+**DECLVAR** → **TIPO** **LISTAID** `puntoycoma`
 
-**DeclVar** → **Tipo** **ListaId** `PUNTOYCOMA`
+**LISTAID** → `id` | `id` `coma` **LISTAID**
 
-**ListaId** → `ID` | `ID` `COMA` **ListaId**
+**TIPO** → `int` | `float` | `void`
 
-**Tipo** → `INT` | `FLOAT` | `VOID`
+**DECLFUNC** → **TIPO** `id` `lparen` **PARAMETROS** `rparen` **BLOQUE**  
+ | **TIPO** `id` `lparen` `rparen` **BLOQUE**
 
-**DeclFunc** → **Tipo** `ID` `LPAREN` **Parametros** `RPAREN` **Bloque**  
-&emsp;| **Tipo** `ID` `LPAREN` `RPAREN` **Bloque**
+**PARAMETROS** → **PARAMLISTA** | ε
 
-**Parametros** → **ParamLista** | ε
+**PARAMLISTA** → **PARAM** | **PARAM** `coma` **PARAMLISTA**
 
-**ParamLista** → **Param** | **Param** `COMA` **ParamLista**
+**PARAM** → **TIPO** `id`
 
-**Param** → **Tipo** `ID`
+**BLOQUE** → `lbrace` **LISTASENTENCIAS** `rbrace`
 
-**Bloque** → `LBRACE` **ListaSentencias** `RBRACE`
+**LISTASENTENCIAS** → **SENTENCIA** **LISTASENTENCIAS** | ε
 
-**ListaSentencias** → **Sentencia** **ListaSentencias** | ε
+**SENTENCIA** → **SENTENCIAEXPR**  
+ | **SENTENCIASEL**  
+ | **SENTENCIAITER**  
+ | **SENTENCIARET**  
+ | **SENTENCIAPRINT**  
+ | **BLOQUE**
 
-**Sentencia** → **SentenciaExpr**  
-&emsp;| **SentenciaSel**  
-&emsp;| **SentenciaIter**  
-&emsp;| **SentenciaRet**  
-&emsp;| **SentenciaPrint**  
-&emsp;| **Bloque**
+**SENTENCIAEXPR** → **ASIGNACION** `puntoycoma` | `puntoycoma`
 
-**SentenciaExpr** → **Asignacion** `PUNTOYCOMA` | `PUNTOYCOMA`
+**ASIGNACION** → `id` `asignacion` **EXPR** | **EXPR**
 
-**Asignacion** → `ID` `ASIGNACION` **Expr** | **Expr**
+**SENTENCIASEL** → `if` `lparen` **EXPR** `rparen` **SENTENCIA**  
+ | `if` `lparen` **EXPR** `rparen` **SENTENCIA** `else` **SENTENCIA**
 
-**SentenciaSel** → `IF` `LPAREN` **Expr** `RPAREN` **Sentencia**  
-&emsp;| `IF` `LPAREN` **Expr** `RPAREN` **Sentencia** `ELSE` **Sentencia**
+**SENTENCIAITER** → `while` `lparen` **EXPR** `rparen` **SENTENCIA**  
+ | `for` `lparen` **EXPR** `puntoycoma` **EXPR** `puntoycoma` **EXPR** `rparen` **SENTENCIA**
 
-**SentenciaIter** → `WHILE` `LPAREN` **Expr** `RPAREN` **Sentencia**  
-&emsp;| `FOR` `LPAREN` **Expr** `PUNTOYCOMA` **Expr** `PUNTOYCOMA` **Expr** `RPAREN` **Sentencia**
+**SENTENCIARET** → `return` **EXPR** `puntoycoma`
 
-**SentenciaRet** → `RETURN` **Expr** `PUNTOYCOMA`
+**SENTENCIAPRINT** → `print` `lparen` **EXPR** `rparen` `puntoycoma`
 
-**SentenciaPrint** → `PRINT` `LPAREN` **Expr** `RPAREN` `PUNTOYCOMA`
+**EXPR** → **EXPR** `op_or` **EXPRAND** | **EXPRAND**
 
-**Expr** → **Expr** `OP_OR` **ExprAnd** | **ExprAnd**
+**EXPRAND** → **EXPRAND** `op_and` **EXPREQ** | **EXPREQ**
 
-**ExprAnd** → **ExprAnd** `OP_AND` **ExprEq** | **ExprEq**
+**EXPREQ** → **EXPREQ** (`op_eq` | `op_neq`) **EXPRREL** | **EXPRREL**
 
-**ExprEq** → **ExprEq** (`OP_EQ` | `OP_NEQ`) **ExprRel** | **ExprRel**
+**EXPRREL** → **EXPRREL** (`op_lt` | `op_gt` | `op_le` | `op_ge`) **EXPRADIT** | **EXPRADIT**
 
-**ExprRel** → **ExprRel** (`OP_LT` | `OP_GT` | `OP_LE` | `OP_GE`) **ExprAdit** | **ExprAdit**
+**EXPRADIT** → **EXPRADIT** (`op_suma` | `op_resta`) **TERM** | **TERM**
 
-**ExprAdit** → **ExprAdit** (`OP_SUMA` | `OP_RESTA`) **Term** | **Term**
+**TERM** → **TERM** (`op_mul` | `op_div` | `op_mod`) **FACTOR** | **FACTOR**
 
-**Term** → **Term** (`OP_MUL` | `OP_DIV` | `OP_MOD`) **Factor** | **Factor**
+**FACTOR** → `lparen` **EXPR** `rparen`  
+ | `id`  
+ | `num`  
+ | `op_not` **FACTOR**  
+ | `id` `lparen` **ARGLIST** `rparen`  
+ | `id` `lparen` `rparen`
 
-**Factor** → `LPAREN` **Expr** `RPAREN`  
-&emsp;| `ID`  
-&emsp;| `NUM`  
-&emsp;| `OP_NOT` **Factor**  
-&emsp;| `ID` `LPAREN` **ArgList** `RPAREN`  
-&emsp;| `ID` `LPAREN` `RPAREN`
-
-**ArgList** → **Expr** | **Expr** `COMA` **ArgList**
+**ARGLIST** → **EXPR** | **EXPR** `coma` **ARGLIST**
