@@ -1,0 +1,4 @@
+10 + variable_uno * (2 - 5),
+otra_var[3 * 2 + 1],
+funcion(1, a + b),
+(5) [2]
