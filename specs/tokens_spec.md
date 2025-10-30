@@ -18,7 +18,7 @@
 | RETURN       | `return`                         | `return` |
 | PRINT        | `print`                          | `print` |
 | ID           | `[A-Za-z_][A-Za-z0-9_]*`         | `contador`, `_temp` |
-| NUM          | `(?:\d+\.\d+|\d+)`               | `42`, `3.14` |
+| NUM          | `(?:\d+\.\d+\|\d+)`              | `42`, `3.14` |
 | ASIGNACION   | `=`                              | `=` |
 | OP_EQ        | `==`                             | `==` |
 | OP_NEQ       | `!=`                             | `!=` |
